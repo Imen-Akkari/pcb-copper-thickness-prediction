@@ -1,0 +1,12 @@
+Best threshold for class 0 (F1): 0.878792
+              precision    recall  f1-score   support
+
+           0     0.9694    0.9896    0.9794        96
+           1     1.0000    0.9999    0.9999     29116
+
+    accuracy                         0.9999     29212
+   macro avg     0.9847    0.9947    0.9897     29212
+weighted avg     0.9999    0.9999    0.9999     29212
+
+Balanced Accuracy: 0.994740
+MCC: 0.979365

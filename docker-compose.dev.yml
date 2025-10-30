@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # SQL Server Database for development
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: copper-quality-db-dev
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=DevPassword123!
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - db_data_dev:/var/opt/mssql
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    networks:
+      - copper-quality-dev-network
+    restart: unless-stopped
+
+  # Redis for development
+  redis:
+    image: redis:7-alpine
+    container_name: copper-quality-redis-dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data_dev:/data
+    networks:
+      - copper-quality-dev-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # Development backend (optional - can run locally)
+  backend-dev:
+    build:
+      context: ./back_end_python
+      dockerfile: Dockerfile
+      target: builder
+    container_name: copper-quality-backend-dev
+    environment:
+      - DB_SERVER=database
+      - DB_NAME=cuivre
+      - DB_USER=sa
+      - DB_PASSWORD=DevPassword123!
+      - SERIAL_PORT=/dev/ttyUSB0
+      - CORS_ORIGINS=http://localhost:4200
+      - ENVIRONMENT=development
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./back_end_python:/app
+      - backend_logs_dev:/app/logs
+    networks:
+      - copper-quality-dev-network
+    depends_on:
+      - database
+    restart: unless-stopped
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  db_data_dev:
+    driver: local
+  backend_logs_dev:
+    driver: local
+  redis_data_dev:
+    driver: local
+
+networks:
+  copper-quality-dev-network:
+    driver: bridge

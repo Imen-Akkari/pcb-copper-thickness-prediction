@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  # SQL Server Database
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: copper-quality-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - db_data:/var/opt/mssql
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    networks:
+      - copper-quality-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -Q 'SELECT 1'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./back_end_python
+      dockerfile: Dockerfile
+    container_name: copper-quality-backend
+    environment:
+      - DB_SERVER=database
+      - DB_NAME=cuivre
+      - DB_USER=sa
+      - DB_PASSWORD=YourStrong@Passw0rd
+      - SERIAL_PORT=/dev/ttyUSB0
+      - CORS_ORIGINS=http://localhost:4200,http://localhost:80
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./back_end_python/ml/models:/app/ml/models:ro
+      - backend_logs:/app/logs
+    networks:
+      - copper-quality-network
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Angular Frontend
+  frontend:
+    build:
+      context: ./mon-projet4
+      dockerfile: Dockerfile
+    container_name: copper-quality-frontend
+    ports:
+      - "80:80"
+    networks:
+      - copper-quality-network
+    depends_on:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: copper-quality-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - copper-quality-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  db_data:
+    driver: local
+  backend_logs:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  copper-quality-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
