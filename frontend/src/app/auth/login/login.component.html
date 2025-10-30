@@ -1,0 +1,46 @@
+<div class="login-wrap d-flex justify-content-center align-items-center vh-100">
+  <div class="login-card shadow">
+    <div class="text-center mb-3">
+      <div class="brand d-inline-flex align-items-center gap-2">
+        <img src="assets/logo.jpg" alt="FUBA" width="90" height="36" />
+        <div class="brand-text fw-bold"><span class="brand-fu">FU</span><span class="brand-ba">BA</span></div>
+      </div>
+      <div class="subtitle">Portail de connexion</div>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger py-2 mb-3">{{ error }}</div>
+
+    <form (ngSubmit)="onLogin()" #form="ngForm" class="mt-2">
+      <div class="mb-3">
+        <label for="email" class="form-label">Adresse Email</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+          <input id="email" name="email" type="email" class="form-control" [(ngModel)]="email" required placeholder="exemple@domaine.com" />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-lock"></i></span>
+          <input [type]="showPwd ? 'text' : 'password'" id="password" name="password" class="form-control" [(ngModel)]="password" required placeholder="Votre mot de passe" />
+          <button type="button" class="btn btn-outline-secondary" (click)="togglePwd()">{{ showPwd ? 'Masquer' : 'Afficher' }}</button>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3 small">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="remember" />
+          <label class="form-check-label" for="remember">Se souvenir de moi</label>
+        </div>
+        <a class="text-decoration-none" href="#">Mot de passe oublié ?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+    </form>
+
+    <div class="login-footer text-center mt-3 small text-muted">
+      © {{ year }} FUBA. Tous droits réservés.
+    </div>
+  </div>
+</div>

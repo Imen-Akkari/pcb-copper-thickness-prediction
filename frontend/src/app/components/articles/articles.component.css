@@ -1,0 +1,38 @@
+table {
+ border-radius: 20px;
+ overflow: hidden;
+}
+
+th {
+ background-color: #f8f9fa;
+ color: #495057;
+ font-weight: 600;
+}
+
+td, th {
+ padding: 8px;
+ vertical-align: middle;
+}
+
+tr:hover {
+ background-color: #f1f3f5;
+ transition: background-color 0.3s;
+}
+
+.table {
+ border-collapse: separate;
+ border-spacing: 0;
+}
+.table-responsive {
+ overflow-x: auto;
+}
+
+.large-container {
+ max-width: 95%;
+ margin: auto;
+}
+
+.text-custom-blue {
+  color: #003366 !important;
+}
+

@@ -1,0 +1,23 @@
+<div class="container mt-4">
+  <h3 class="text-primary fw-bold text-custom-blue">
+    Article : {{ articleInfo.Article }} — OF : {{ articleInfo.Num_OF }}
+  </h3>
+  <p>Quantité prévue : {{ articleInfo.Quantite_Prevue }}</p>
+
+  <table class="table table-bordered table-hover mt-3">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>Valeur Mesure</th>
+        <th>Date / Heure</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mesure of mesures; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ mesure.valeur_mesure }}</td>
+        <td>{{ mesure.datetime_mesure }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,21 @@
+.hero {
+  position: relative;
+  min-height: 48vh;
+  background: linear-gradient(135deg, #0d6efd 0%, #012a6c 100%);
+}
+.hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.12), rgba(255,255,255,0));
+}
+.hero .hero-content { position: relative; z-index: 1; }
+
+.kpi { border: 0; }
+.kpi .kpi-label { font-size: 0.9rem; color: #6c757d; text-transform: uppercase; letter-spacing: .04em; }
+.kpi .kpi-value { font-size: 1.8rem; font-weight: 700; }
+
+.card { border-radius: 12px; }
+
+@media (max-width: 576px) {
+  .hero { min-height: 40vh; }
+}

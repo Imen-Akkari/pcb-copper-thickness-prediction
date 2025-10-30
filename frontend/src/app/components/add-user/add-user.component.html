@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4 p-4">
+    <h2 class="mb-4 text-center fw-bold" style="color: #003366;">
+  <i class="bi bi-person-plus-fill me-2" style="color: #003366;"></i>Ajouter un utilisateur
+</h2>
+
+
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="emailInput" placeholder="Email" [(ngModel)]="user.email" name="email" required />
+        <label for="emailInput"><i class="bi bi-envelope-fill me-2"></i>Email</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="prenomInput" placeholder="Prénom" [(ngModel)]="user.firstname" name="firstname" required />
+        <label for="prenomInput"><i class="bi bi-person-fill me-2"></i>Prénom</label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <input type="text" class="form-control" id="nomInput" placeholder="Nom" [(ngModel)]="user.lastname" name="lastname" required />
+        <label for="nomInput"><i class="bi bi-person-badge-fill me-2"></i>Nom</label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <select class="form-select" id="roleSelect" [(ngModel)]="user.role" name="role" required>
+          <option value="operateur">Opérateur</option>
+          <option value="admin">Admin</option>
+        </select>
+        <label for="roleSelect"><i class="bi bi-shield-lock-fill me-2"></i>Rôle</label>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm" [disabled]="userForm.invalid">
+          <i class="bi bi-check2-circle me-1"></i> Ajouter
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="successMessage" class="alert alert-success mt-4 text-center rounded-3 shadow-sm">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger mt-4 text-center rounded-3 shadow-sm">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>

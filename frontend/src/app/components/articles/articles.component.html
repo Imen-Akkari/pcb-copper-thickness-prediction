@@ -1,0 +1,78 @@
+<div class="container large-container mt-5">
+  <h2 class="mb-4 text-primary fw-bold text-custom-blue">
+    <i class="bi bi-card-list me-2"></i>Liste des Articles
+  </h2>
+
+  <!-- 🔍 Recherche + Export -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <input 
+      type="text" 
+      class="form-control w-50" 
+      [(ngModel)]="searchText" 
+      (keyup.enter)="onScanComplete()" 
+      placeholder="🔍 Rechercher par Article ou Scanner Numéro OF...">
+    <button class="btn btn-success ms-3" (click)="exportToExcel()">
+      <i class="bi bi-file-earmark-excel"></i> Exporter Excel
+    </button>
+  </div>
+
+  <!-- 📋 Tableau -->
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle shadow-sm">
+      <thead class="table-light text-center">
+        <tr>
+          <th>Article</th>
+          <th>Numero OF</th>
+          <th>Numero LOT</th>
+          <th>Quantite Prevue</th>
+          <th>Quantité Rebutee</th>
+          <th>Qte_Bonne</th>
+          <th>Qte_Fls</th>
+          <th>Centre de charge</th>
+          <th>Poste de charge</th>
+          <th>Date lancement</th>
+          <th>date_In</th>
+          <th>SUSFLG_0</th>
+          <th>Epcubase</th>
+          <th>Tolepcutro</th>
+          <th>Epcutrous</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let article of filteredArticles">
+          <td>{{ article.Article }}</td>
+          <td>{{ article.Num_OF }}</td>
+          <td>{{ article.Num_lot }}</td>
+          <td>{{ article.Quantite_Prevue }}</td>
+          <td>
+            <span class="badge" [class.bg-danger]="(+article.Qte_Rebutee) > 0" [class.bg-secondary]="(+article.Qte_Rebutee) === 0">
+              {{ article.Qte_Rebutee }}
+            </span>
+          </td>
+          <td>
+            <span class="badge bg-success">{{ article.Qte_Bonne }}</span>
+          </td>
+          <td>{{ article.Qte_fls }}</td>
+          <td>{{ article.Centre_de_Charge }}</td>
+          <td>{{ article.Poste_de_Charge }}</td>
+          <td>{{ article.Date_Lancement }}</td>
+          <td>{{ article.Date_In }}</td>
+          <td>
+            <span class="badge" [class.bg-success]="(+article.SUSFLG_0) === 0" [class.bg-danger]="(+article.SUSFLG_0) !== 0">
+              {{ (+article.SUSFLG_0) === 0 ? 'OK' : 'Suspect' }}
+            </span>
+          </td>
+          <td>{{ article.epcubase }}</td>
+          <td>{{ article.tolepcutro }}</td>
+          <td>{{ article.epcutrous }}</td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm" (click)="showDetails(article)">
+              <i class="bi bi-bar-chart"></i> Mesures
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<section class="hero text-center text-white d-flex flex-column justify-content-center align-items-center">
+  <div class="overlay"></div>
+  <div class="hero-content container">
+    <h1 class="display-5 fw-bold mb-3"><span class="brand-fu">FU</span><span class="brand-ba">BA</span> Printed Circuits</h1>
+    <p class="lead mb-4">Circuits imprimés de haute qualité pour l’industrie automobile et au‑delà</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a routerLink="/dashboard" class="btn btn-primary btn-lg px-4">Voir le dashboard</a>
+      <a routerLink="/statics" class="btn btn-outline-light btn-lg px-4">Statistiques prédictives</a>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <div class="card kpi shadow-sm h-100">
+        <div class="card-body">
+          <div class="kpi-label">Articles</div>
+          <div class="kpi-value">{{  (1234) | number }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card kpi shadow-sm h-100">
+        <div class="card-body">
+          <div class="kpi-label">Mesures</div>
+          <div class="kpi-value">{{ (56789) | number }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card kpi shadow-sm h-100">
+        <div class="card-body">
+          <div class="kpi-label">Alertes 24h</div>
+          <div class="kpi-value text-danger">{{ 12 }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h2 class="h4 mb-3">Présentation</h2>
+          <p class="mb-0">FUBA Printed Circuits, fondée en 1991, est un acteur de référence des PCB multicouches, engagé sur la qualité, la traçabilité et la performance industrielle.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h2 class="h4 mb-3">Contact</h2>
+          <div class="small text-muted">El Azib, Délégation Menzel Djemil - Km9, 7026</div>
+          <div class="small">Tél: 39 140 117 · 72 451 144</div>
+          <div class="small">Fax: 72 451 333</div>
+          <div class="small">Email: <a href="mailto:info@fuba-tunisie.com">info@fuba-tunisie.com</a></div>
+          <div class="small">Site: <a href="https://onetech-group.com" target="_blank">onetech-group.com</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

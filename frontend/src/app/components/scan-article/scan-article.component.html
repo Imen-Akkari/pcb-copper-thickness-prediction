@@ -1,0 +1,77 @@
+<!-- Barre de navigation -->
+<!--<nav class="navbar">
+  <div class="navbar-logo">
+    <img src="../assets/FUBA.png" alt="Logo FUBA" />
+  </div>
+  <div class="navbar-links">
+    <a routerLink="/" routerLinkActive="active">Accueil</a>
+    <a routerLink="/voir-details" routerLinkActive="active">Voir détails</a>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-btn">Déconnexion</button>
+  </div>
+</nav>--!>
+
+<!-- Contenu principal -->
+<div class="container mt-4">
+  <h1 class="page-title text-center">Mesure d'épaisseur de cuivre par OF</h1>
+
+  <h2 class="section-title">Scanner un OF</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="numOF"
+    (keydown.enter)="onNumOFChange(numOF)"
+    placeholder="Scanner un Num_OF"
+    autofocus
+    class="form-control mb-3"
+  />
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Affiche uniquement si OF actif et mesures disponibles -->
+  <div *ngIf="currentOFEntry && showDisplay" class="mt-4 table-responsive">
+    <h3 class="text-primary">
+      OF actif : {{ currentOFEntry.article.Num_OF }} — Article : {{ currentOFEntry.article.Article }}
+      <span class="badge bg-success ms-2">Actif</span>
+    </h3>
+
+    <table class="table table-bordered table-striped table-sm mt-3">
+      <thead class="table-light text-center align-middle">
+        <tr>
+          <th>Num_OF</th>
+          <th>Article</th>
+          <th>N°lot</th>
+          <th>Qte prévue</th>
+          <th>Qte rebutée</th>
+          <th>Qte bonne</th>
+          <th>Qte fls</th>
+          <th>Epcubase</th>
+          <th>Tolepcutro</th>
+          <th>Epcutrous</th>
+          <th>Mesure (µm)</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+  <tr *ngIf="currentOFEntry.mesures.length > 0" class="align-middle text-center">
+    <td>{{ currentOFEntry.article.Num_OF }}</td>
+    <td>{{ currentOFEntry.article.Article }}</td>
+    <td>{{ currentOFEntry.article.Num_lot }}</td>
+    <td class="text-end">{{ currentOFEntry.article.Quantite_Prevue }}</td>
+    <td class="text-end">{{ currentOFEntry.article.Qte_Rebutee }}</td>
+    <td class="text-end">{{ currentOFEntry.article.Qte_Bonne }}</td>
+    <td class="text-end">{{ currentOFEntry.article.Qte_fls }}</td>
+    <td>{{ currentOFEntry.article.epcubase }}</td>
+    <td>{{ currentOFEntry.article.tolepcutro }}</td>
+    <td>{{ currentOFEntry.article.epcutrous }}</td>
+    <td class="fw-bold text-end">{{ currentOFEntry.mesures[0].valeur }}</td>
+    <td>{{ currentOFEntry.mesures[0].date }}</td>
+  </tr>
+</tbody>
+    </table>
+  </div>
+</div>
+

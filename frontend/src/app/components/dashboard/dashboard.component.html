@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Dashboard des alertes</h2>
+  <span class="badge bg-danger" *ngIf="alertes?.length">{{ alertes.length }} éléments</span>
+  <span class="text-muted" *ngIf="!alertes?.length">Aucune alerte</span>
+  </div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>Article</th>
+        <th>Mesure</th>
+        <th>Status</th>
+        <th class="text-end">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let alerte of alertes; let i = index; trackBy: trackByIndex" [class.table-danger]="alerte.status==='alerte'">
+        <td>{{ i + 1 }}</td>
+        <td>{{ alerte.article }}</td>
+        <td>{{ alerte.mesure }}</td>
+        <td>
+          <span class="badge" [class.bg-danger]="alerte.status==='alerte'" [class.bg-success]="alerte.status==='ok'">{{ alerte.status }}</span>
+        </td>
+        <td class="text-end">
+          <button class="btn btn-sm btn-outline-danger" (click)="removeItem(i)" title="Supprimer">
+            <span aria-hidden="true">🗑️</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

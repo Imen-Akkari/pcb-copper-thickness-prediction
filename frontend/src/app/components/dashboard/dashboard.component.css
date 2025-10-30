@@ -1,0 +1,28 @@
+.alert-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.alert-table th, .alert-table td {
+  border: 1px solid #999;
+  padding: 10px;
+  text-align: center;
+}
+
+.alert-table th {
+  background-color: #f2f2f2;
+}
+
+.alerte {
+  background-color: #f8d7da;
+  color: #721c24;
+  font-weight: bold;
+}
+
+.ok {
+  background-color: #d4edda;
+  color: #155724;
+  font-weight: bold;
+}

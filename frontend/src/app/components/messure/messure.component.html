@@ -1,0 +1,20 @@
+<div class="container mt-5">
+  <h3>Mesure en temps réel</h3>
+
+  <!-- Affichage direct -->
+  <p class="fw-bold fs-4 text-primary">
+    Valeur mesurée : {{ valeurSerie || 'En attente...' }}
+  </p>
+
+  <!-- OU dans un champ input en lecture seule -->
+  <div class="mb-3">
+    <label for="valeurInput" class="form-label">Valeur série :</label>
+    <input
+      type="text"
+      id="valeurInput"
+      class="form-control"
+      [value]="valeurSerie"
+      readonly
+    />
+  </div>
+</div>

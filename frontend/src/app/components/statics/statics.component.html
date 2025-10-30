@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <h2>Live Predictions</h2>
+  <div class="row g-2 align-items-end mt-2">
+    <div class="col-sm-4">
+      <label class="form-label">Début </label>
+      <input class="form-control" [(ngModel)]="start" placeholder="30/07" />
+    </div>
+    <div class="col-sm-4">
+      <label class="form-label">Fin </label>
+      <input class="form-control" [(ngModel)]="end" placeholder="13/08" />
+    </div>
+    <div class="col-sm-4">
+      <button class="btn btn-primary w-100" (click)="refresh()">Filtrer</button>
+    </div>
+  </div>
+
+  <div *ngIf="showBanner" class="alert alert-danger d-flex justify-content-between align-items-center mt-3">
+    <div>{{ bannerMessage }}</div>
+    <button class="btn btn-sm btn-outline-light" (click)="closeBanner()">Fermer</button>
+  </div>
+
+  <div class="table-responsive mt-3">
+    <table class="table table-striped table-bordered align-middle">
+      <thead>
+        <tr>
+          <th>OF</th>
+          <th>Mesure</th>
+          <th>Prediction</th>
+          <th>Proba</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of predictions">
+          <td>{{ p.num_of }}</td>
+          <td>{{ p.value }}</td>
+          <td>
+            <span class="badge" [class.bg-danger]="p.prediction === 1" [class.bg-success]="p.prediction !== 1">
+              {{ p.prediction === 1 ? 'Mesure hors tolérance' : 'Mesure OK' }}
+            </span>
+          </td>
+          <td>{{ formatProba(p.proba) }}</td>
+          <td>{{ p.timestamp | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+body {
+ padding-top: 10px; /* espace sous la navbar fixe */
+ background-color: #f8f9fa; /* fond clair et moderne */
+ font-family: 'Segoe UI', sans-serif;
+}
+
+.main-content {
+ min-height: 10vh;
+}
